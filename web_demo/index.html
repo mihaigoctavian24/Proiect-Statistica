@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naive Bayes Spam Classifier | Demo</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="badge">PROIECT STATISTICĂ</div>
+            <h1>Naive Bayes <span class="gradient-text">Spam Classifier</span></h1>
+            <p>Demonstrație practică a Teoremei Bayes în timp real</p>
+        </header>
+
+        <main>
+            <div class="card glass-panel">
+                <div class="input-section">
+                    <label for="messageInput">Introduceți un mesaj pentru analiză:</label>
+                    <div class="textarea-wrapper">
+                        <textarea id="messageInput" placeholder="Ex: Câștigă un iPhone gratuit acum! Click aici..."></textarea>
+                        <div class="actions">
+                            <button id="clearBtn" class="icon-btn" title="Șterge"><i class="fas fa-trash"></i></button>
+                            <button id="randomBtn" class="secondary-btn"><i class="fas fa-dice"></i> Mesaj Random</button>
+                        </div>
+                    </div>
+                    <button id="analyzeBtn" class="primary-btn">
+                        <span>Analizează Mesaj</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="resultSection" class="card glass-panel hidden">
+                <div class="result-header">
+                    <h2>Rezultat Analiză</h2>
+                    <div id="classificationBadge" class="classification-badge">
+                        <span id="classificationIcon"></span>
+                        <span id="classificationText">--</span>
+                    </div>
+                </div>
+
+                <div class="probabilities-container">
+                    <div class="prob-row">
+                        <div class="prob-label">
+                            <span>SPAM</span>
+                            <span id="spamProbValue">0%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div id="spamBar" class="progress-bar spam" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="prob-row">
+                        <div class="prob-label">
+                            <span>HAM (Legitim)</span>
+                            <span id="hamProbValue">0%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div id="hamBar" class="progress-bar ham" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="explanation">
+                    <h3>🔍 Cum a funcționat?</h3>
+                    <p id="explanationText">Algoritmul a calculat probabilitatea bazată pe cuvintele găsite...</p>
+                    <div id="tokenChips" class="token-chips">
+                        <!-- Tokens will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Implementat de <strong>Octavian Mihai</strong> & <strong>Bianca-Maria Abbasi Pazeyazd</strong></p>
+            <p class="subtitle">Facultatea de Informatică Managerială • Universitatea Româno-Americană</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
