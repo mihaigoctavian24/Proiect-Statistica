@@ -107,13 +107,13 @@ model_data = classifier.export()
 
 # Save as JSON for frontend
 try:
-    os.makedirs("web_demo", exist_ok=True)
-    output_path = "web_demo/model.json"
+    output_path = "model.json"
 
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(model_data, f, ensure_ascii=False, indent=2)
 
     print(f"✅ Model exported to {output_path}")
+
     print(f"Vocab size: {len(model_data['vocabulary'])}")
 except Exception as e:
     print(f"❌ Error exporting model: {e}")
