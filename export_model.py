@@ -56,49 +56,47 @@ tokenized_messages = [preprocess_text(msg) for msg in messages]
 class NaiveBayesClassifier:
     def __init__(self, alpha=1.0):
         self.alpha = alpha
-        self.class_probs = {}
-        self.word_probs = {}
+        # We will calc these in fit
+        self.class_counts = {}
+        self.word_counts = {}
         self.vocabulary = set()
+        self.total_messages = 0
+        self.total_words_in_class = {'spam': 0, 'ham': 0}
 
     def fit(self, messages, labels):
-        # 1. Class probabilities
-        total_messages = len(labels)
-        spam_count = sum(1 for l in labels if l == 'spam')
-        ham_count = sum(1 for l in labels if l == 'ham')
+        # 1. Count everything
+        self.class_counts = Counter(labels)
+        self.total_messages = len(labels)
         
-        self.class_probs['spam'] = spam_count / total_messages
-        self.class_probs['ham'] = ham_count / total_messages
-
         # 2. Build vocabulary and counts
-        word_counts = {'spam': Counter(), 'ham': Counter()}
+        self.word_counts = {'spam': Counter(), 'ham': Counter()}
         for tokens, label in zip(messages, labels):
             for word in tokens:
                 self.vocabulary.add(word)
-                word_counts[label][word] += 1
+                self.word_counts[label][word] += 1
         
-        # 3. Calculate P(word|class) /w smoothing
-        vocab_size = len(self.vocabulary)
-        for class_name in ['spam', 'ham']:
-            self.word_probs[class_name] = {}
-            total_words_in_class = sum(word_counts[class_name].values())
-            
-            for word in self.vocabulary:
-                count = word_counts[class_name][word]
-                # Laplace smoothing
-                prob = (count + self.alpha) / (total_words_in_class + self.alpha * vocab_size)
-                self.word_probs[class_name][word] = prob
+        # 3. Pre-calculate totals for denominator efficiency
+        self.total_words_in_class = {
+            'spam': sum(self.word_counts['spam'].values()),
+            'ham': sum(self.word_counts['ham'].values())
+        }
 
     def export(self):
+        # Export raw counts for client-side math
         return {
-            "class_probs": self.class_probs,
-            "word_probs": self.word_probs,
             "vocabulary": list(self.vocabulary),
-            "alpha": self.alpha
+            "word_counts": {
+                "spam": dict(self.word_counts['spam']),
+                "ham": dict(self.word_counts['ham'])
+            },
+            "class_counts": dict(self.class_counts),
+            "total_words_in_class": self.total_words_in_class,
+            "total_messages": self.total_messages
         }
 
 # Train
 print("Training model...")
-classifier = NaiveBayesClassifier(alpha=1.0)
+classifier = NaiveBayesClassifier(alpha=1.0) # Alpha doesn't matter for export now
 classifier.fit(tokenized_messages, labels)
 
 # --- 3. EXPORT TO JSON ---
@@ -113,7 +111,9 @@ try:
         json.dump(model_data, f, ensure_ascii=False, indent=2)
 
     print(f"✅ Model exported to {output_path}")
-
     print(f"Vocab size: {len(model_data['vocabulary'])}")
+    print(f"Spam messages: {model_data['class_counts']['spam']}")
+    print(f"Ham messages: {model_data['class_counts']['ham']}")
 except Exception as e:
     print(f"❌ Error exporting model: {e}")
+
