@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-bg text-slate-200 font-sans antialiased overflow-x-hidden;
+    background-image: radial-gradient(#262626 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+}
+
+@layer components {
+  .bento-card {
+    @apply bg-surface-100 border border-border rounded-xl p-6 transition-all duration-300;
+  }
+
+  .bento-card:hover {
+    @apply border-[#525252] shadow-lg shadow-black/20;
+  }
+
+  .input-field {
+    @apply bg-bg border border-border rounded-lg px-4 py-2 text-sm focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-colors;
+  }
+
+  .btn-primary {
+    @apply bg-white text-black font-semibold px-4 py-2 rounded-lg hover:bg-slate-200 transition-colors flex items-center gap-2;
+  }
+
+  .btn-secondary {
+    @apply bg-surface-200 text-slate-300 font-medium px-4 py-2 rounded-lg hover:bg-surface-300 transition-colors flex items-center gap-2;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #404040;
+}

@@ -105,7 +105,8 @@ model_data = classifier.export()
 
 # Save as JSON for frontend
 try:
-    output_path = "model.json"
+    os.makedirs("public", exist_ok=True)
+    output_path = "public/model.json"
 
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(model_data, f, ensure_ascii=False, indent=2)

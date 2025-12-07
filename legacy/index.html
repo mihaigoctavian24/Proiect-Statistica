@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naive Bayes Interactive Lab | V2.0</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="badge">PROIECT STATISTICĂ</div>
+            <h1>Naive Bayes <span class="gradient-text">Interactive Lab</span></h1>
+            <p>Experimentează cu parametrii algoritmului în timp real</p>
+        </header>
+
+        <main>
+            <!-- Control Panel -->
+            <div class="card glass-panel control-panel">
+                <div class="panel-header">
+                    <i class="fas fa-sliders-h"></i> Parametri Model
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <label>Smoothing (Alpha): <span id="alphaValue">1.0</span></label>
+                        <div class="tooltip"><i class="fas fa-info-circle"></i> Can be 0 (overfit) to 5.0 (underfit)
+                        </div>
+                    </div>
+                    <input type="range" id="alphaSlider" min="0.001" max="5.0" step="0.1" value="1.0">
+                    <div class="slider-labels">
+                        <span>Strict (0)</span>
+                        <span>Generic (5)</span>
+                    </div>
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <label>Probabilitate Spam (Prior): <span id="priorValue">50%</span></label>
+                    </div>
+                    <input type="range" id="priorSlider" min="1" max="99" step="1" value="50">
+                    <div class="slider-labels">
+                        <span>Rare (1%)</span>
+                        <span>Common (99%)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="card glass-panel">
+                <div class="input-section">
+                    <label>Mesaj pentru Analiză:</label>
+                    <!-- Replaced textarea with contenteditable div for highlighting -->
+                    <div class="textarea-wrapper rich-input-wrapper">
+                        <div id="heatmapInput" class="heatmap-input" contenteditable="true" spellcheck="false"></div>
+                        <div class="placeholder-text" id="placeholderText">Ex: Câștigă un iPhone gratuit acum...</div>
+
+                        <div class="actions">
+                            <button id="clearBtn" class="icon-btn" title="Șterge"><i class="fas fa-trash"></i></button>
+                            <button id="randomBtn" class="secondary-btn"><i class="fas fa-dice"></i> Random</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div id="resultSection" class="card glass-panel hidden">
+                <div class="result-header">
+                    <h2>Rezultat</h2>
+                    <div id="classificationBadge" class="classification-badge">
+                        <span id="classificationIcon"></span>
+                        <span id="classificationText">--</span>
+                    </div>
+                </div>
+
+                <div class="probabilities-container">
+                    <div class="prob-row">
+                        <div class="prob-label">
+                            <span>SPAM</span>
+                            <span id="spamProbValue">0%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div id="spamBar" class="progress-bar spam" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Math Explanation -->
+                <div class="explanation math-box">
+                    <h3>🧮 Matematica din spate</h3>
+                    <div class="formula" id="formulaDisplay">
+                        P(Spam|W) ∝ P(Spam) × Π P(w_i|Spam)
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Implementat de <strong>Octavian Mihai</strong> & <strong>Bianca-Maria Abbasi Pazeyazd</strong></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
