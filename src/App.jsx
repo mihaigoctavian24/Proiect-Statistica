@@ -167,7 +167,7 @@ function App() {
           {/* RIGHT: Actions */}
           <div className="hidden xl:flex justify-end gap-3 min-w-[240px]">
             <a
-              href="https://github.com/octav1an/naive-bayes-spam-classifier"
+              href="https://github.com/mihaigoctavian24/Proiect-Statistica"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-surface-200/50 hover:bg-surface-200 border border-white/10 rounded-lg text-slate-300 hover:text-white transition-all backdrop-blur-md group"
